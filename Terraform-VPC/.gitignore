@@ -1,0 +1,29 @@
+# Terraform .gitignore
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+
+# .terraform directory
+.terraform/
+
+# Crash log files
+crash.log
+
+# Exclude any .tfvars files that are intended to be kept secret
+*.auto.tfvars
+*.tfvars
+
+# Ignore override files as they are usually used to override resources locally and do not need to be committed
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore .terraformrc as it can contain sensitive credentials
+.terraformrc
+
+# .tfplan files are created when running terraform plan
+*.tfplan
+
+# .tfstate files are also excluded f
