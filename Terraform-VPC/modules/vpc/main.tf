@@ -4,7 +4,7 @@ resource "aws_vpc" "my_vpc" {
   cidr_block = var.vpc_cidr
   instance_tenancy = "default"
   tags = {
-    "Name" = "my_vpc"
+    "Name" = "exchange_my_vpc"
   }
 }
 
@@ -16,7 +16,7 @@ resource "aws_subnet" "subnets" {
     availability_zone = data.aws_availability_zones.available.names[count.index]
     map_public_ip_on_launch = true
     tags = {
-      "Name" = var.subnets_names[count.index]
+      "Name" = "exchange-${var.subnets_names[count.index]}"
     }
 }
 
@@ -25,7 +25,7 @@ resource "aws_subnet" "subnets" {
 resource "aws_internet_gateway" "igw" {
     vpc_id = aws_vpc.my_vpc.id
     tags={
-        "Name" = "Internet-gateway"
+        "Name" = "exchange-Internet-gateway"
     }
 
 }
@@ -39,7 +39,7 @@ resource "aws_route_table" "rt" {
         gateway_id = aws_internet_gateway.igw.id
     }
     tags = {
-      "Name" = "My_Route_Table" 
+      "Name" = "exchange-route-table" 
     }
   
 }
@@ -58,6 +58,8 @@ resource "aws_route_table_association" "route_table_association" {
     count = length(var.subnet_cidr)
     subnet_id = aws_subnet.subnets[count.index].id
     route_table_id = aws_route_table.rt.id
+
+    
   
 }
 
